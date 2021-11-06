@@ -12,9 +12,9 @@ module.exports = (sequelize, DataTypes) => {
         }
     };
     Grade.init({
-        topic_id: DataTypes.UUID,
-        user_id: DataTypes.UUID,
-        score: DataTypes.FLOAT,
+        topic_id: DataTypes.INTEGER,
+        user_id: DataTypes.INTEGER,
+        score: DataTypes.DOUBLE,
     }, {
         sequelize,
         modelName: 'Grade',
