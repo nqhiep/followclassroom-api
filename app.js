@@ -6,6 +6,7 @@ const logger = require('morgan');
 const cors = require('cors');
 
 const classesRouter = require('./components/classes');
+const siteRouter = require('./components/auth');
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/', siteRouter);
 app.use('/classes', classesRouter);
 
 // catch 404 and forward to error handler
