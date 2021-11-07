@@ -1,13 +1,13 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Grade', {
-      topic_id: {
+    await queryInterface.createTable('User_Class', {
+      class_id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.INTEGER,
         references: {
-          model: 'Topic',
+          model: 'Class',
           key: 'id'
         }
       },
@@ -20,9 +20,9 @@ module.exports = {
           key: 'id'
         }
       },
-      score: {
+      role: {
         allowNull: false,
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
@@ -35,6 +35,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Grade');
+    await queryInterface.dropTable('User_Class');
   }
 };
