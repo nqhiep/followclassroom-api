@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require('../../models/index');
 
 router.get('/', async (req, res, next) => {
+  // console.log("hello")
   try {
     let data = await db.Classes.findAll();
     res.json(data);
