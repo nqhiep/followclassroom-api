@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const SignUpSchema = Joi.object({
+const signUpSchema = Joi.object({
     email: Joi.string()
         .email()
         .lowercase()
@@ -12,5 +12,5 @@ const SignUpSchema = Joi.object({
 })
 
 module.exports = {
-    SignUpSchema
+    signUpSchema
 }
