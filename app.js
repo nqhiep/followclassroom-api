@@ -1,3 +1,4 @@
+require('dotenv').config()
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -5,12 +6,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
-const session = require('express-session');
 const classesRouter = require('./components/classes');
 const siteRouter = require('./components/auth');
-
 const app = express();
-
 const connectDb = require('./config/connectDb');
 connectDb();
 
@@ -30,21 +28,14 @@ const corsOptions = {
   },
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
-
 app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({
-  secret: 'keyboard cat',
-  resave: true,
-  saveUninitialized: false,
-  cookie: { maxAge: 30*60*1000 }
-}))
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(passport.initialize());
+
 app.use('/', siteRouter);
 app.use('/classes', classesRouter);
 

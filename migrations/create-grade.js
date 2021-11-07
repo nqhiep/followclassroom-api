@@ -2,6 +2,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Grade', {
+      
       topic_id: {
         allowNull: false,
         primaryKey: true,

@@ -1,29 +1,46 @@
-var passport = require('passport');
-require('../../config/passport')(passport);
 var jwt = require('jsonwebtoken');
 const userService = require('./userService');
+const { JWT_SECRET } = require('../../config/authentication');
+
+const encodedToken = (userId) => {
+    return jwt.sign({
+        iss: "followclassroom",
+        sub: userId,
+        iat: new Date().getTime(),
+        exp: new Date().setDate(new Date().getDate() + 30)
+    }, JWT_SECRET)
+}
 
 class AuthController {
     async signUp(req, res) {
-        const isExist = await userService.isExistEmail(req.body.email);
-        if(isExist) return res.json({
-            status: "FAIL",
-            message: "Email already in use!"
-        })
+        try {
+            const isExist = await userService.isExistEmail(req.body.email);
+            if(isExist) return res.json({
+                isSuccess: false,
+                message: "Email already in use!"
+            })
 
-        const newUser = await userService.createUser(req.body);
-        return res.json(newUser);
+            await userService.createUser(req.body);
+            return res.json(
+                {
+                    isSuccess: true,
+                    message: "Sign up successfully!"
+                }
+            );
+        } catch(err) {
+            res.json(
+                {
+                    isSuccess: false,
+                    message: "Server error"
+                }
+            );
+        }
     }
 
     async signIn(req, res) {
-        const { email, password } = req.body;
-        const user = await userService.checkCredential(email, password);
-        if(user) {
-            const token = jwt.sign({user}, "nodeauthsecret");
-            res.json({success: true, token: 'JWT ' + token});
-        } else {
-            res.status(401).send({success: false, msg: 'Authentication failed. Wrong password.'});
-        }
+        const token = encodedToken(req.user.id);
+        res.setHeader('Authorization', token);
+        res.json({ isSuccess: true });
     }
 }
 

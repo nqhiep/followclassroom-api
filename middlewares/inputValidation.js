@@ -1,16 +1,38 @@
+const Joi = require('joi');
+const schemas = {
+    signUpSchema: Joi.object({
+        email: Joi.string()
+        .email()
+        .lowercase()
+        .required(),
+        password: Joi.string()
+        .min(6)
+        .required(),
+        confirm_password: Joi.ref('password')
+    }),
+    signInSchema: Joi.object({
+        email: Joi.string()
+        .email()
+        .lowercase()
+        .required(),
+        password: Joi.string()
+        .min(6)
+        .required(),
+    })
+}
 
-function InputValidate(schema) {
+function validateBody(schema) {
     return async (req, res, next) => {
         try {
             await schema.validateAsync(req.body);
             next();
         } catch (error) {
             res.json({
-                status: "FAIL",
+                isSuccess: false,
                 message: error.message
             })
         }
     }
 }
 
-module.exports = InputValidate;
+module.exports = { validateBody, schemas };
