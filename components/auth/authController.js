@@ -42,6 +42,7 @@ class AuthController {
         res.setHeader('Authorization', token);
         res.json({ isSuccess: true });
     }
+
 }
 
 module.exports = new AuthController();

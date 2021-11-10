@@ -17,6 +17,12 @@ router.post('/sign-in',
     AuthController.signIn
 );
 
+//[POST] /auth/google
+router.post('/auth/google',
+    passport.authenticate('google-plus-token', { session: false }),
+    AuthController.signIn
+)
+
 //[POST] /secret (For test)
 router.post('/secret',
     passport.authenticate('jwt', { session: false }),
