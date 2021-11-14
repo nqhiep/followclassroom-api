@@ -8,6 +8,7 @@ const cors = require('cors');
 const passport = require('passport');
 const classesRouter = require('./components/classes');
 const authRouter = require('./components/auth');
+const authenticate = require('./middlewares/authentication');
 const app = express();
 const connectDb = require('./config/connectDb');
 connectDb();
@@ -36,6 +37,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
+app.use(authenticate);
 app.use('/classes', classesRouter);
 app.use('/api', authRouter);
 
