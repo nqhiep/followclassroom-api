@@ -2,7 +2,6 @@ const db = require('../../models/index');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const { Users } = db;
-console.log(Users);
 
 module.exports.findById = async function(id) {
     const user = await Users.findOne({
@@ -38,27 +37,38 @@ module.exports.checkCredential = async function(email, password) {
         }
     })
     //tam
-    if(! user || !users.password) {
+    if(! user || !user.password) {
         return false;
     }
-    if(!user || !bcrypt.compareSync(password, users.password)) {
+    if(!user || !bcrypt.compareSync(password, user.password)) {
         return false;
     }
     return user;
 }
 
 module.exports.findOrCreateGGAccount = async (gg_profile) => {
+    const email = gg_profile.email;
+    const gg_account = gg_profile.id;
+    const avatar = gg_profile.picture;
+
     let user = await Users.findOne({
         where: {
-            gg_account: gg_profile.id
+            email 
         }
     })
     if(!user) {
         user = await Users.create({
-            gg_account: gg_profile.id,
-            email: gg_profile.emails[0]?.value,
-            avatar: gg_profile.image.url
+            gg_account,
+            email,
+            avatar
         });
+        return user;
+    }
+    if(user && !user.gg_account) {
+        await Users.update({ gg_account, avatar }, {
+            where: { email }
+        })
+        return user;
     }
     return user;
 }
