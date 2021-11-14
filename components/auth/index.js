@@ -13,13 +13,13 @@ router.post('/sign-up',
 //[POST] /sign-in
 router.post('/sign-in',
     validateBody(schemas.signInSchema),
-    passport.authenticate('local', { session: false }),
+    passport.authenticate('local', { session: false}),
     AuthController.signIn
 );
 
 //[POST] /auth/google
 router.post('/auth/google',
-    passport.authenticate('google-plus-token', { session: false }),
+    passport.authenticate('google-token', { session: false }),
     AuthController.signIn
 )
 
@@ -32,5 +32,13 @@ router.post('/secret',
     }
 )
 
+//[GET] /secret (For test)
+router.get('/secret',
+    passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
+        console.log(req.user);
+        res.json({success: true, userId: req.user.id})
+    }
+)
 
 module.exports = router;

@@ -1,26 +1,26 @@
 var jwt = require('jsonwebtoken');
-const userService = require('./userService');
+const authService = require('./authService');
 const { JWT_SECRET } = require('../../config/authentication');
 
 const encodedToken = (userId) => {
     return jwt.sign({
         iss: "followclassroom",
         sub: userId,
-        iat: new Date().getTime(),
-        exp: new Date().setDate(new Date().getDate() + 30)
-    }, JWT_SECRET)
+    }, JWT_SECRET, {
+        expiresIn: '30d'
+    })
 }
 
 class AuthController {
     async signUp(req, res) {
         try {
-            const isExist = await userService.isExistEmail(req.body.email);
+            const isExist = await authService.isExistEmail(req.body.email);
             if(isExist) return res.json({
                 isSuccess: false,
                 message: "Email already in use!"
             })
 
-            await userService.createUser(req.body);
+            await authService.createUser(req.body);
             return res.json(
                 {
                     isSuccess: true,
@@ -39,10 +39,12 @@ class AuthController {
 
     async signIn(req, res) {
         const token = encodedToken(req.user.id);
-        res.setHeader('Authorization', token);
-        res.json({ isSuccess: true });
+        res.json({
+            authorization: token, 
+            isSuccess: true,
+            message: "Sign in successfully"
+        });
     }
-
 }
 
 module.exports = new AuthController();
