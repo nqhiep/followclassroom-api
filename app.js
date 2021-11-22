@@ -8,6 +8,8 @@ const cors = require('cors');
 const passport = require('passport');
 const classesRouter = require('./components/classes');
 const authRouter = require('./components/auth');
+const emailRouter = require('./components/email');
+const classlinkRouter = require('./components/classlinkcode');
 const authenticate = require('./middlewares/authentication');
 const app = express();
 const connectDb = require('./config/connectDb');
@@ -40,6 +42,8 @@ app.use(passport.initialize());
 app.use(authenticate);
 app.use('/classes', classesRouter);
 app.use('/api', authRouter);
+app.use('/classlink', classlinkRouter);
+app.use('/email', emailRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

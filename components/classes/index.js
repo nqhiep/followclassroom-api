@@ -1,38 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../models/index');
+const classesController = require('./classesController');
 
-router.get('/', async (req, res, next) => {
-  // console.log("hello")
-  try {
-    let data = await db.Classes.findAll();
-    res.json(data);
-  } catch (err) {
-    console.error(err);
-  }
-});
+/* GET users listing. */
+router.get('/', classesController.showCategory);
 
+router.get('/:id', classesController.showClassById);
 
-router.post('/', (req, res, next) => {
-  try {
-    let data = {
-      name: req.body.name,
-      description: req.body.description,
-      room: req.body.room,
-    };
-    db.Classes.create(data).then((classItem) => {
-      if (classItem) {
-        res.json(classItem);
-        console.log("Inserted")
-      }
-      else {
-        console.log("Insert failed");
-      }
-    });
-  } catch (err) {
-    console.error(err);
-  }
-
-})
+router.post('/', classesController.createNewClass);
 
 module.exports = router;
+

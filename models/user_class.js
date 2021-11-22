@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     User_Class.init({
         class_id: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
             references: {
                 model: 'Class',
                 key: 'id'
@@ -21,13 +22,18 @@ module.exports = (sequelize, DataTypes) => {
         },
         user_id: {
             type: DataTypes.INTEGER,
+            primaryKey: true,
             references: {
                 model: 'User',
                 key: 'id'
             },
         },
-        role: DataTypes.STRING,
+        role: {
+            type: DataTypes.STRING,
+            primaryKey: true
+        }
     }, {
+        freezeTableName: true,
         sequelize,
         modelName: 'User_Class',
     });

@@ -23,6 +23,10 @@ router.post('/auth/google',
     AuthController.signIn
 )
 
+router.get('/user-infor', 
+AuthController.getfromToken
+)
+
 //[POST] /secret (For test)
 router.post('/secret',
     passport.authenticate('jwt', { session: false }),

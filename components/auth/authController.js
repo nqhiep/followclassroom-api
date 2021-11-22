@@ -18,7 +18,7 @@ class AuthController {
             if(isExist) return res.json({
                 isSuccess: false,
                 message: "Email already in use!"
-            })
+            });
 
             await authService.createUser(req.body);
             return res.json(
@@ -43,6 +43,29 @@ class AuthController {
             authorization: token, 
             isSuccess: true,
             message: "Sign in successfully"
+        });
+    }
+
+    async getfromToken(req, res) {
+        const user_id = req.user.id;
+        if(!user_id) {
+            return res.json({
+                isSuccess: false,
+                message: "Unsuccessfully"
+            });
+        }
+        
+        const userInfor = await authService.findById(user_id);
+        res.json({
+            isSuccess: true,
+            authorization: {
+                id: userInfor.id,
+                email: userInfor.email,
+                gg_acount: userInfor.gg_account,
+                fb_account: userInfor.fb_account,
+                avatar: userInfor.avatar,
+                student_id: userInfor.student_id
+            }
         });
     }
 }

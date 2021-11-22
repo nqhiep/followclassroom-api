@@ -22,6 +22,7 @@ module.exports = {
       },
       role: {
         allowNull: false,
+        primaryKey: true,
         type: Sequelize.STRING,
       },
       createdAt: {
