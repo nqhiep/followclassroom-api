@@ -27,6 +27,8 @@ router.get('/user-infor',
 AuthController.getfromToken
 )
 
+router.post('/user-update', AuthController.updUser)
+
 //[POST] /secret (For test)
 router.post('/secret',
     passport.authenticate('jwt', { session: false }),

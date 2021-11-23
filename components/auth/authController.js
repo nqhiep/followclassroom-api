@@ -68,6 +68,38 @@ class AuthController {
             }
         });
     }
+
+    async updUser(req, res) {
+        try {
+           const isUpdate = await authService.updateUser(
+               req.user.id, 
+               req.body.email, 
+               req.body.student_id, 
+               req.body.gg_account,
+               req.body.fb_account
+            );
+            
+            if(!isUpdate) {
+                res.json ({
+                    isSuccess: false,
+                    message: "Unsuccessful"
+                });
+            }
+           
+            res.json ({
+                isSuccess: true,
+                message: "Successful"
+            });
+            
+        } catch (err) {
+            res.json(
+                {
+                    isSuccess: false,
+                    message: "Server error"
+                }
+            );
+        }
+    }
 }
 
 module.exports = new AuthController();

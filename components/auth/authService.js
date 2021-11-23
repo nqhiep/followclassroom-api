@@ -72,3 +72,27 @@ module.exports.findOrCreateGGAccount = async (gg_profile) => {
     }
     return user;
 }
+
+module.exports.updateUser = async (id, email, student_id, gg_account, fb_account) => {
+    const user = this.findById(id);
+
+    if (!user) return user;
+
+    if(email && !(email === user.email)) {
+        await Users.update({ email }, { where: { id } });
+    }
+
+    if(student_id && !(student_id === user.student_id)) {
+        await Users.update({ student_id }, { where: { id } });
+    }
+
+    if(gg_account && !(gg_account === user.gg_account)) { 
+        await Users.update({ gg_account }, { where: { id } });
+    }
+
+    if(fb_account && !(fb_account === user.fb_account)) { 
+        await Users.update({ fb_account }, { where: { id } });
+    }
+
+    return user;
+}
