@@ -1,4 +1,8 @@
-require('dotenv').config()
+require('dotenv').config();
+// const jwtOptions = {
+//   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+//   secretOrKey: process.env.SECRET
+// };
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
