@@ -2,9 +2,9 @@ const userClassService = require('./userClassService');
 
 class classesController {
     async showUserClassList(req, res) {
-        // const classId = req.
+        const classId = req.params.id;
         try {
-            res.json(await userClassService.getUserByClassId());
+            return await res.json(await userClassService.getUserByClassId(classId));
         } catch (err) {
             console.error(err);
         }
