@@ -50,6 +50,12 @@ class classesController {
             };
             await classesService.createUserClass(userClass);
 
+            res.json(
+                {
+                    isSuccess: true,
+                    message: "Create class successfully!"
+                })
+
         } catch (err) {
             console.error(err);
         }

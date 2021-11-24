@@ -2,15 +2,13 @@ const db = require('../../models/index');
 const { Classes, User_Class } = db;
 
 module.exports.classesCategory = async function (userId) {
-    // const classes = await Classes.findAll();
-    const classes_n = await User_Class.findAll({
+    const classes = await User_Class.findAll({
         where: {
             user_id: userId
         },
         include: Classes
     });
-    // console.log(classes_n);
-    return classes_n;
+    return classes;
 }
 
 module.exports.classList = async function () {

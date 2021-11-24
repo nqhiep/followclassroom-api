@@ -8,6 +8,5 @@ module.exports.getUserByClassId = async function () {
         },
         include: Users
     });
-    // console.log(classes_n);
     return userClass;
 }
