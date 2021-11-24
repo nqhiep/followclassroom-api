@@ -7,6 +7,7 @@ const logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
 const classesRouter = require('./components/classes');
+const userClassRouter = require('./components/userclass');
 const authRouter = require('./components/auth');
 const emailRouter = require('./components/email');
 const classlinkRouter = require('./components/classlinkcode');
@@ -41,6 +42,7 @@ app.use(passport.initialize());
 
 app.use(authenticate);
 app.use('/classes', classesRouter);
+app.use('/userclass', userClassRouter);
 app.use('/api', authRouter);
 app.use('/classlink', classlinkRouter);
 app.use('/email', emailRouter);

@@ -7,7 +7,7 @@
     "dialect": "postgres",
     "logging": false,
     "query": {
-      "raw": true
+      "raw": false
     },
     "timezone": "+07:00",
     "dialectOptions": {
