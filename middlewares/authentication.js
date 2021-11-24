@@ -5,9 +5,7 @@ const whiteRoute = [
     '/api/sign-in',
     '/api/auth/google',
     '/api/secret',
-    '/classlink/:linkid/sign-up',
-    '/classlink/:linkid/sign-in',
-    '/classlink/:linkid/auth/google'
+    '/classlink'
 ]
 
 function checkWhiteRoute(route, whiteRoute) {

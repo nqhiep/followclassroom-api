@@ -71,6 +71,7 @@ class AuthController {
             message: "Exist User"
         });
 
+        console.log(req.params.linkid);
         const create = await authService.createUserClass(req.body.email, req.params.linkid);
         if(!create) return res.json({
             isSuccess: false,
