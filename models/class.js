@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         cover: DataTypes.STRING,
         student_link: DataTypes.STRING,
         teacher_link: DataTypes.STRING,
+        
     }, {
         sequelize,
         modelName: 'Classes',
