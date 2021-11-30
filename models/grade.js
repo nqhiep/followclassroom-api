@@ -29,10 +29,6 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             type: DataTypes.FLOAT
         },
-        order: {
-            allowNull: false,
-            type: DataTypes.INTEGER
-        },
     }, {
         sequelize,
         modelName: 'Grades',

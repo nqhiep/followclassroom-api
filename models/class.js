@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         cover: DataTypes.STRING,
         student_link: DataTypes.STRING,
         teacher_link: DataTypes.STRING,
-
+        grade_order: DataTypes.ARRAY(DataTypes.INTEGER),
     }, {
         sequelize,
         modelName: 'Classes',

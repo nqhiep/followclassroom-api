@@ -25,6 +25,9 @@ module.exports = {
       teacher_link: {
         type: Sequelize.STRING
       },
+      grade_order: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER)
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
