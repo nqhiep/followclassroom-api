@@ -15,6 +15,7 @@ const userClassRouter = require('./components/userclass');
 const authRouter = require('./components/auth');
 const emailRouter = require('./components/email');
 const classlinkRouter = require('./components/classlinkcode');
+const gradeRouter = require('./components/grades')
 const authenticate = require('./middlewares/authentication');
 const app = express();
 const connectDb = require('./config/connectDb');
@@ -50,6 +51,7 @@ app.use('/userclass', userClassRouter);
 app.use('/api', authRouter);
 app.use('/classlink', classlinkRouter);
 app.use('/email', emailRouter);
+app.use('/grades', gradeRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

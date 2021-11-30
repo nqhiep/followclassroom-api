@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class Classes extends Model {
         static associate(models) {
             Classes.hasMany(models.User_Class, { foreignKey: 'class_id' });
-            Classes.hasMany(models.Topics, { foreignKey: 'class_id' });
+            Classes.hasMany(models.Grades, { foreignKey: 'class_id' });
         }
     };
     Classes.init({
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         cover: DataTypes.STRING,
         student_link: DataTypes.STRING,
         teacher_link: DataTypes.STRING,
-        
+
     }, {
         sequelize,
         modelName: 'Classes',

@@ -3,26 +3,36 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
     class Grades extends Model {
         static associate(models) {
-            Grades.belongsTo(models.Topics, { foreignKey: 'topic_id' });
-            Grades.belongsTo(models.Users, { foreignKey: 'user_id' });
+            Grades.belongsTo(models.Classes, { foreignKey: 'class_id' });
+            Grades.hasMany(models.Scores);
         }
     };
     Grades.init({
-        topic_id: {
+        id: {
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: DataTypes.INTEGER
+        },
+        class_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: 'Topics',
+                model: 'Classes',
                 key: 'id'
             },
         },
-        user_id: {
-            type: DataTypes.INTEGER,
-            references: {
-                model: 'Users',
-                key: 'id'
-            },
+        name: {
+            allowNull: false,
+            type: DataTypes.STRING
         },
-        score: DataTypes.FLOAT,
+        weight: {
+            allowNull: false,
+            type: DataTypes.FLOAT
+        },
+        order: {
+            allowNull: false,
+            type: DataTypes.INTEGER
+        },
     }, {
         sequelize,
         modelName: 'Grades',

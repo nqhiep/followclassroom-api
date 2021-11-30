@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class Users extends Model {
         static associate(models) {
             Users.hasMany(models.User_Class, { foreignKey: 'user_id' });
-            Users.hasMany(models.Grades);
+            Users.hasMany(models.Scores);
         }
     };
     Users.init({
