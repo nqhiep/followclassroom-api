@@ -83,3 +83,10 @@ module.exports.updateData = async function (class_id, gradeOrder) {
         { where: { id: class_id } },
     );
 }
+
+module.exports.updateGrade = async function (grade_id, data) {
+    await Grades.update(
+        { data },
+        { where: { id } },
+    );
+}
