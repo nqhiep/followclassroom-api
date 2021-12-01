@@ -25,7 +25,7 @@ connectDb();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-var whitelist = ['http://localhost:3001']
+var whitelist = ['http://localhost:3001', 'https://follmeclassroom.herokuapp.com', 'https://follclassroom.herokuapp.com'];
 
 const corsOptions = {
   origin: function (origin, callback) {
