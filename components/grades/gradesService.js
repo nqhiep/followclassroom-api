@@ -1,14 +1,11 @@
 const db = require('../../models/index');
-const { Grades } = db;
+const { Grades, Classes } = db;
 
 module.exports.gradesCategory = async function (classId) {
     const grades = await Grades.findAll({
         where: {
             class_id: classId
-        },
-        order: [
-            ['order', 'ASC']
-        ]
+        }
     });
     
     return grades;
@@ -25,7 +22,32 @@ module.exports.findGradebyId = async function (classid, id) {
 }
 
 module.exports.createData = async function (data) {
-    await Grades.create(data);
+    let result = await Grades.create(data);
+
+
+    let setup = await Classes.findOne({
+        where: {
+            'id': data.class_id
+        }
+    })
+
+    if(setup.grade_order===null) {
+        setup.grade_order = [result.id]
+    } else {
+        setup.grade_order.push(result.id);
+    }
+
+    console.log(setup.grade_order)
+    
+    await Classes.update({
+        grade_order: setup.grade_order
+    }, {
+        where: {
+            id: data.class_id
+        },
+
+    })
+
 }
 
 module.exports.deleteData = async function (classid, id) {
@@ -34,5 +56,25 @@ module.exports.deleteData = async function (classid, id) {
             'id': id,
             'class_id': classid
         }
+    })
+
+    let setup = await Classes.findOne({
+        where: {
+            'id': classid
+        }
+    })
+
+    let new_setup = setup.grade_order.filter(item => item != id);
+
+    console.log(id)
+    console.log(new_setup)
+    
+    await Classes.update({
+        grade_order: new_setup
+    }, {
+        where: {
+            id: classid
+        },
+
     })
 }

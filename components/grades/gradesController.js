@@ -27,8 +27,7 @@ class gradesController {
             let data = {
                 class_id: req.params.classid,
                 name: req.body.name,
-                weight: req.body.weight,
-                order: gradelength.length + 1
+                weight: req.body.weight
             };
             await gradesService.createData(data);
 

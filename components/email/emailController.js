@@ -19,7 +19,7 @@ class emailControler {
         });
 
         const mailOptions = {
-            from: 'minhhieunguyen23121999@gmail.com',
+            from: 'FollowClassRoom',
             to: req.body.email,
             subject: 'Invite join Class by Me',
             html: '<div>' +
