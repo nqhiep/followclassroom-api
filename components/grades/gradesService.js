@@ -6,8 +6,7 @@ module.exports.gradesCategory = async function (classId) {
         where: {
             class_id: classId
         }
-    });
-    
+    });  
     return grades;
 }
 
