@@ -11,6 +11,8 @@ router.post('/:classid', classesController.createNewGrade);
 
 router.put('/:classid', classesController.updateGradeOrder);
 
+router.put('/:classid/:id', classesController.updateGrade);
+
 router.delete('/:classid/:id', classesController.deleteGrade);
 
 module.exports = router;

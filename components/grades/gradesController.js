@@ -74,6 +74,21 @@ class gradesController {
             console.error(err);
         }
     }
+
+    async updateGrade(req, res) {
+        try {
+
+            await gradesService.updateGrades(req.params.classid, req.params.id, req.body.name, req.body.weight);
+            res.json(
+            {
+                    isSuccess: true,
+                    message: "Update Grade successfully!"
+                })
+
+        } catch (err) {
+           console.error(err);
+        }
+    }
 }
 
 module.exports = new gradesController();
