@@ -1,15 +1,14 @@
 'use strict';
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Grades extends Model {
+    class Grade_Board extends Model {
         static associate(models) {
-            Grades.belongsTo(models.Classes, { foreignKey: 'class_id' });
-            Grades.hasMany(models.Scores);
+            Grade_Board.belongsTo(models.Classes, { foreignKey: 'class_id' });
+            Grade_Board.belongsTo(models.Users, { foreignKey: 'user_id' });
         }
     };
-    Grades.init({
+    Grade_Board.init({
         id: {
-            allowNull: false,
             autoIncrement: true,
             primaryKey: true,
             type: DataTypes.INTEGER
@@ -21,21 +20,23 @@ module.exports = (sequelize, DataTypes) => {
                 key: 'id'
             },
         },
-        name: {
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Users',
+                key: 'id'
+            },
+        },
+        fullname: {
             allowNull: false,
             type: DataTypes.STRING
         },
-        weight: {
-            allowNull: false,
-            type: DataTypes.FLOAT
-        },
-        is_finish: {
-            type: DataTypes.BOOLEAN,
-            defaultValue: false,
+        gpa: {
+            type: DataTypes.FLOAT,
         },
     }, {
         sequelize,
-        modelName: 'Grades',
+        modelName: 'Grade_Board',
     });
-    return Grades;
+    return Grade_Board;
 };

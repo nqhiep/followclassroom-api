@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
             },
         },
         score: DataTypes.FLOAT,
+        score_based_weight: DataTypes.FLOAT,
     }, {
         sequelize,
         modelName: 'Scores',

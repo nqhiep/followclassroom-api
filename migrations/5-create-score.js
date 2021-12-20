@@ -24,6 +24,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.FLOAT,
       },
+      score_based_weight: {
+        allowNull: false,
+        type: Sequelize.FLOAT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
