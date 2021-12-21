@@ -18,6 +18,16 @@ const schemas = {
         password: Joi.string()
         .min(6)
         .required(),
+    }),
+
+    updateSpecificScore: Joi.object({
+        studentId: Joi.string()
+            .min(1)
+            .required(),
+        score: Joi.number()
+            .min(0)
+            .max(10)
+            .required()
     })
 }
 

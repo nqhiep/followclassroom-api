@@ -16,6 +16,7 @@ const authRouter = require('./components/auth');
 const emailRouter = require('./components/email');
 const classlinkRouter = require('./components/classlinkcode');
 const gradeRouter = require('./components/grades')
+const scoreRouter = require('./components/scores')
 const authenticate = require('./middlewares/authentication');
 const app = express();
 const connectDb = require('./config/connectDb');
@@ -52,6 +53,7 @@ app.use('/api', authRouter);
 app.use('/classlink', classlinkRouter);
 app.use('/email', emailRouter);
 app.use('/grades', gradeRouter);
+app.use('/scores', scoreRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -66,7 +68,10 @@ app.use(function (err, req, res, next) {
   console.log(err);
   // render the error page
   res.status(err.status || 500);
-  res.json('Not Found');
+  res.json({
+    isSuccess: false,
+    message: err.message
+  });
 });
 
 module.exports = app;
