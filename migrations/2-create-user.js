@@ -26,7 +26,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       student_id: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       createdAt: {
         allowNull: false,

@@ -11,14 +11,10 @@ module.exports = {
           key: 'id'
         }
       },
-      user_id: {
+      student_id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id'
-        }
+        type: Sequelize.STRING,
       },
       score: {
         allowNull: false,

@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         gg_account: DataTypes.STRING,
         fb_account: DataTypes.STRING,
         avatar: DataTypes.STRING,
-        student_id: DataTypes.STRING,
+        student_id: {
+            type: DataTypes.STRING,
+            unique: true,
+        },
     }, {
         sequelize,
         modelName: 'Users',
