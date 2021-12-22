@@ -2,22 +2,22 @@ const Joi = require('joi');
 const schemas = {
     signUpSchema: Joi.object({
         email: Joi.string()
-        .email()
-        .lowercase()
-        .required(),
+            .email()
+            .lowercase()
+            .required(),
         password: Joi.string()
-        .min(6)
-        .required(),
+            .min(6)
+            .required(),
         confirm_password: Joi.ref('password')
     }),
     signInSchema: Joi.object({
         email: Joi.string()
-        .email()
-        .lowercase()
-        .required(),
+            .email()
+            .lowercase()
+            .required(),
         password: Joi.string()
-        .min(6)
-        .required(),
+            .min(6)
+            .required(),
     }),
 
     updateSpecificScore: Joi.object({

@@ -15,13 +15,13 @@ class AuthController {
     async signUp(req, res) {
         try {
             const isExistLink = await authService.findByLink(req.params.linkid);
-            if(!isExistLink) return res.json({
+            if (!isExistLink) return res.json({
                 isSuccess: false,
                 message: "LinkID is fail!"
             });
 
             const isExist = await authService.isExistEmail(req.body.email);
-            if(isExist) return res.json({
+            if (isExist) return res.json({
                 isSuccess: false,
                 message: "Email already in use!"
             });
@@ -29,7 +29,7 @@ class AuthController {
             await authService.createUser(req.body);
 
             const create = await authService.createUserClass(req.body.email, req.params.linkid);
-            if(!create) return res.json({
+            if (!create) return res.json({
                 isSuccess: false,
                 message: "Can't create user_class!"
             });
@@ -40,7 +40,7 @@ class AuthController {
                     message: "Sign up successfully!"
                 }
             );
-        } catch(err) {
+        } catch (err) {
             res.json(
                 {
                     isSuccess: false,
@@ -52,7 +52,7 @@ class AuthController {
 
     async signIn(req, res) {
         const isExistLink = await authService.findByLink(req.params.linkid);
-        if(!isExistLink) return res.json({
+        if (!isExistLink) return res.json({
             isSuccess: false,
             message: "LinkID is fail!"
         });
@@ -65,7 +65,7 @@ class AuthController {
 
         const token = encodedToken(req.user.id);
 
-        if(isExistUserInClass) return res.json({
+        if (isExistUserInClass) return res.json({
             authorization: token,
             isSuccess: true,
             message: "Exist User"
@@ -73,13 +73,13 @@ class AuthController {
 
         console.log(req.params.linkid);
         const create = await authService.createUserClass(req.body.email, req.params.linkid);
-        if(!create) return res.json({
+        if (!create) return res.json({
             isSuccess: false,
             message: "Can't create user_class!"
         });
 
         res.json({
-            authorization: token, 
+            authorization: token,
             isSuccess: true,
             message: "Sign in successfully"
         });

@@ -1,5 +1,5 @@
 const db = require('../../models/index');
-const { Grade_Board, User_Class, Users, Grades, Scores } = db;
+const { Grade_Board, Users, Grades, Scores } = db;
 
 module.exports.addGradeBoard = async function (data) {
     data.User = await Users.findOne({
@@ -9,7 +9,6 @@ module.exports.addGradeBoard = async function (data) {
     })
 
     data.user_id = data.User?.id;
-
     await Grade_Board.create(data);
 }
 
@@ -22,6 +21,7 @@ module.exports.GetGradeBoard = async function (classId) {
             }
         ]
     });
+
     return userClass;
 }
 

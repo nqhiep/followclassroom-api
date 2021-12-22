@@ -15,7 +15,7 @@ class AuthController {
     async signUp(req, res) {
         try {
             const isExist = await authService.isExistEmail(req.body.email);
-            if(isExist) return res.json({
+            if (isExist) return res.json({
                 isSuccess: false,
                 message: "Email already in use!"
             });
@@ -27,7 +27,7 @@ class AuthController {
                     message: "Sign up successfully!"
                 }
             );
-        } catch(err) {
+        } catch (err) {
             res.json(
                 {
                     isSuccess: false,
@@ -40,7 +40,7 @@ class AuthController {
     async signIn(req, res) {
         const token = encodedToken(req.user.id);
         res.json({
-            authorization: token, 
+            authorization: token,
             isSuccess: true,
             message: "Sign in successfully"
         });
@@ -48,13 +48,13 @@ class AuthController {
 
     async getfromToken(req, res) {
         const user_id = req.user.id;
-        if(!user_id) {
+        if (!user_id) {
             return res.json({
                 isSuccess: false,
                 message: "Unsuccessfully"
             });
         }
-        
+
         const userInfor = await authService.findById(user_id);
         res.json({
             isSuccess: true,
@@ -71,26 +71,26 @@ class AuthController {
 
     async updUser(req, res) {
         try {
-           const isUpdate = await authService.updateUser(
-               req.user.id, 
-               req.body.email, 
-               req.body.student_id, 
-               req.body.gg_account,
-               req.body.fb_account
+            const isUpdate = await authService.updateUser(
+                req.user.id,
+                req.body.email,
+                req.body.student_id,
+                req.body.gg_account,
+                req.body.fb_account
             );
-            
-            if(!isUpdate) {
-                res.json ({
+
+            if (!isUpdate) {
+                res.json({
                     isSuccess: false,
                     message: "Unsuccessful"
                 });
             }
-           
-            res.json ({
+
+            res.json({
                 isSuccess: true,
                 message: "Successful"
             });
-            
+
         } catch (err) {
             res.json(
                 {

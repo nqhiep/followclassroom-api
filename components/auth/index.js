@@ -13,7 +13,7 @@ router.post('/sign-up',
 //[POST] /sign-in
 router.post('/sign-in',
     validateBody(schemas.signInSchema),
-    passport.authenticate('local', { session: false}),
+    passport.authenticate('local', { session: false }),
     AuthController.signIn
 );
 
@@ -23,8 +23,8 @@ router.post('/auth/google',
     AuthController.signIn
 )
 
-router.get('/user-infor', 
-AuthController.getfromToken
+router.get('/user-infor',
+    AuthController.getfromToken
 )
 
 router.post('/user-update', AuthController.updUser)
@@ -34,7 +34,7 @@ router.post('/secret',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
         console.log(req.user);
-        res.json({success: true})
+        res.json({ success: true })
     }
 )
 
@@ -43,7 +43,7 @@ router.get('/secret',
     passport.authenticate('jwt', { session: false }),
     async (req, res) => {
         console.log(req.user);
-        res.json({success: true, userId: req.user.id})
+        res.json({ success: true, userId: req.user.id })
     }
 )
 
