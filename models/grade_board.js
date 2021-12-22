@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
             },
         }
     }, {
+        freezeTableName: true,
         sequelize,
         modelName: 'Grade_Board',
     });
