@@ -1,5 +1,5 @@
 const db = require('../../models/index');
-const { Grade_Board, User_Class, Users } = db;
+const { Grade_Board, User_Class, Users, Grades, Scores } = db;
 
 module.exports.addGradeBoard = async function (data) {
     data.User = await Users.findOne({
@@ -23,4 +23,16 @@ module.exports.GetGradeBoard = async function (classId) {
         ]
     });
     return userClass;
+}
+
+module.exports.getScoresInAllGrades = async function(classId) {
+    const grades = await Grades.findAll({
+        where: { class_id: classId },
+        include: [
+            {
+                model: Scores,
+            }
+        ]
+    });
+    return grades;
 }
