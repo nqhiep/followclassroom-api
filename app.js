@@ -23,7 +23,7 @@ connectDb();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-var whitelist = ['http://localhost:3001', 'https://follmeclassroom.herokuapp.com', 'https://follclassroom.herokuapp.com', 'https://followclassroom-fe.vercel.app/'];
+var whitelist = ['http://localhost:3001', 'https://follmeclassroom.herokuapp.com', 'https://follclassroom.herokuapp.com', 'https://followclassroom-fe.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
