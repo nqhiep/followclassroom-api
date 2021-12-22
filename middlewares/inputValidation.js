@@ -28,7 +28,7 @@ const schemas = {
             .min(0)
             .max(10)
             .required()
-    })
+    }),
 }
 
 function validateBody(schema) {
