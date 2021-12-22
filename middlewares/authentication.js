@@ -13,9 +13,9 @@ function checkWhiteRoute(route, whiteRoute) {
 }
 
 const authentication = (req, res, next) => {
-    if(checkWhiteRoute(req.url, whiteRoute)) {
-       return next();
-    } 
+    if (checkWhiteRoute(req.url, whiteRoute)) {
+        return next();
+    }
 
     return passport.authenticate('jwt', { session: false })(req, res, next);
 }

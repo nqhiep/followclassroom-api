@@ -14,7 +14,7 @@ class emailControler {
             service: 'gmail',
             auth: {
                 user: 'foll.classroom@gmail.com',
-                pass: 'Ptudw123'
+                pass: 'Ptudw123.'
             }
         });
 

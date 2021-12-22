@@ -45,16 +45,16 @@ passport.use(new LocalStrategy(
 passport.use(new GoogleTokenStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET
-  },
-  async function(accessToken, refreshToken, profile, done) {
-    try {
-        const user = await authService.findOrCreateGGAccount(profile._json);
-        return done(null, { id: user.id });
-    } catch (err) {
-        console.log(err);
-        done(err, false);
+},
+    async function (accessToken, refreshToken, profile, done) {
+        try {
+            const user = await authService.findOrCreateGGAccount(profile._json);
+            return done(null, { id: user.id });
+        } catch (err) {
+            console.log(err);
+            done(err, false);
+        }
     }
-  }
 ));
 
 

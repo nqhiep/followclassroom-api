@@ -1,5 +1,5 @@
 const db = require('../../models/index');
-const { Grade_Board, User_Class, Users } = db;
+const { Grade_Board, Users, Grades, Scores } = db;
 
 module.exports.addGradeBoard = async function (data) {
     data.User = await Users.findOne({
@@ -9,7 +9,6 @@ module.exports.addGradeBoard = async function (data) {
     })
 
     data.user_id = data.User?.id;
-
     await Grade_Board.create(data);
 }
 
@@ -22,6 +21,7 @@ module.exports.GetGradeBoard = async function (classId) {
             }
         ]
     });
+
     return userClass;
 }
 
@@ -31,10 +31,6 @@ module.exports.GetGradeBoardByClassId = async function (classId) {
     });
     return gradeboard;
 }
-
-// class_id: classId,
-//                         student_id: student.StudentId,
-//                         fullname: student["Full name"]
 
 module.exports.createOrUpdateStudent = async function ({ class_id, student_id, fullname }) {
     const studentEntry = await Grade_Board.findOne({
@@ -74,4 +70,16 @@ module.exports.addStudentList = async (data) => {
             await this.createOrUpdateStudent(student)
         }
     }
+}
+
+module.exports.getScoresInAllGrades = async function (classId) {
+    const grades = await Grades.findAll({
+        where: { class_id: classId },
+        include: [
+            {
+                model: Scores,
+            }
+        ]
+    });
+    return grades;
 }

@@ -2,7 +2,7 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 const scoresService = require('./scoresService');
 
-const {Readable} = require('stream')
+const { Readable } = require('stream')
 
 function parseScoresFromExcel(file) {
     return new Promise((resolve, reject) => {
@@ -37,6 +37,14 @@ async function ExportScoresToExcel(room) {
 
     const allStudentsInClass = await scoresService.getAllStudentsInClass(room.id);
     const allGradesInClass = await scoresService.getAllGradesInClass(room.id);
+    // const gradeList = room.grade_order.map(gradeId => {
+    //     const temp = allGradesInClass.find(grade => grade.id == gradeId)
+    //     return {temp.name}
+    // })
+
+    for(const grade of allGradesInClass) {
+        console.log(grade);
+    }
 
     const generalInforSheet = XLSX.utils.aoa_to_sheet(generalInforData);
     XLSX.utils.book_append_sheet(scoresFile, generalInforSheet, "Sheet1");

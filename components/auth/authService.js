@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const { Users } = db;
 
-module.exports.findById = async function(id) {
+module.exports.findById = async function (id) {
     const user = await Users.findOne({
         where: {
             "id": id
@@ -30,17 +30,17 @@ module.exports.createUser = async (userData) => {
     return user;
 }
 
-module.exports.checkCredential = async function(email, password) {
+module.exports.checkCredential = async function (email, password) {
     const user = await Users.findOne({
         where: {
             email
         }
     })
     //tam
-    if(! user || !user.password) {
+    if (!user || !user.password) {
         return false;
     }
-    if(!user || !bcrypt.compareSync(password, user.password)) {
+    if (!user || !bcrypt.compareSync(password, user.password)) {
         return false;
     }
     return user;
@@ -53,10 +53,10 @@ module.exports.findOrCreateGGAccount = async (gg_profile) => {
 
     let user = await Users.findOne({
         where: {
-            email 
+            email
         }
     })
-    if(!user) {
+    if (!user) {
         user = await Users.create({
             gg_account,
             email,
@@ -64,7 +64,7 @@ module.exports.findOrCreateGGAccount = async (gg_profile) => {
         });
         return user;
     }
-    if(user && !user.gg_account) {
+    if (user && !user.gg_account) {
         await Users.update({ gg_account, avatar }, {
             where: { email }
         })
@@ -78,19 +78,19 @@ module.exports.updateUser = async (id, email, student_id, gg_account, fb_account
 
     if (!user) return user;
 
-    if(email && !(email === user.email)) {
+    if (email && !(email === user.email)) {
         await Users.update({ email }, { where: { id } });
     }
 
-    if(student_id && !(student_id === user.student_id)) {
+    if (student_id && !(student_id === user.student_id)) {
         await Users.update({ student_id }, { where: { id } });
     }
 
-    if(gg_account && !(gg_account === user.gg_account)) { 
+    if (gg_account && !(gg_account === user.gg_account)) {
         await Users.update({ gg_account }, { where: { id } });
     }
 
-    if(fb_account && !(fb_account === user.fb_account)) { 
+    if (fb_account && !(fb_account === user.fb_account)) {
         await Users.update({ fb_account }, { where: { id } });
     }
 
