@@ -80,13 +80,13 @@ class gradesController {
 
             await gradesService.updateGrades(req.params.classid, req.params.id, req.body.name, req.body.weight);
             res.json(
-            {
+                {
                     isSuccess: true,
                     message: "Update Grade successfully!"
                 })
 
         } catch (err) {
-           console.error(err);
+            console.error(err);
         }
     }
 }

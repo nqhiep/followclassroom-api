@@ -2,20 +2,20 @@ const formidable = require('formidable');
 const scoresService = require('./scoresService');
 const ClassRole = require('../../enums/class_role.enum');
 
-const {parseScoresFromExcel, ExportScoresToExcel} = require('./fileHelper'); 
+const { parseScoresFromExcel, ExportScoresToExcel } = require('./fileHelper');
 class scoresController {
     async updateSpecificScore(req, res, next) {
         try {
-            const {studentId, score} = req.body;
+            const { studentId, score } = req.body;
             const gradeId = req.params.gradeId;
             const grade = await scoresService.findGradeById(gradeId);
-            if(!grade) {
+            if (!grade) {
                 return next(new Error("Not found grade"));
-            } 
+            }
 
             const isTeacher = await scoresService.checkRoleInClass(grade.class_id, req.user.id, ClassRole.TEACHER);
 
-            if(!isTeacher) {
+            if (!isTeacher) {
                 return next(new Error("Not have permission"));
             }
 
@@ -26,7 +26,7 @@ class scoresController {
                 isSuccess: true,
                 message: "Update score successfully"
             })
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
@@ -35,13 +35,13 @@ class scoresController {
         try {
             const gradeId = req.params.gradeId;
             const grade = await scoresService.findGradeById(gradeId);
-            if(!grade) {
+            if (!grade) {
                 return next(new Error("Not found grade"));
-            } 
+            }
 
             const isTeacher = await scoresService.checkRoleInClass(grade.class_id, req.user.id, ClassRole.TEACHER);
 
-            if(!isTeacher) {
+            if (!isTeacher) {
                 return next(new Error("Not have permission"));
             }
 
@@ -56,7 +56,7 @@ class scoresController {
                 // Validate scores
                 for (const score of scores) {
                     const scoreNum = Number(score.Grade);
-                    if(isNaN(scoreNum) || scoreNum < 0 || scoreNum > 10) {
+                    if (isNaN(scoreNum) || scoreNum < 0 || scoreNum > 10) {
                         return next(new Error("Score not valid"));
                     }
                     score.StudentId = String(score.StudentId);
@@ -71,22 +71,22 @@ class scoresController {
                     message: "Update score list successfully"
                 })
             });
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }
 
     async exportScores(req, res, next) {
-        try{
+        try {
             const classId = req.params.classId;
             const room = await scoresService.findRoomById(classId);
-            if(!room) {
+            if (!room) {
                 return next(new Error("Not found grade"));
-            } 
+            }
 
             const isTeacher = await scoresService.checkRoleInClass(classId, req.user.id, ClassRole.TEACHER);
 
-            if(!isTeacher) {
+            if (!isTeacher) {
                 return next(new Error("Not have permission"));
             }
 
@@ -94,7 +94,7 @@ class scoresController {
 
             //Send file to Client
             fileStream.pipe(res);
-        } catch(err) {
+        } catch (err) {
             next(err);
         }
     }

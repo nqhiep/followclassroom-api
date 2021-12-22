@@ -2,7 +2,7 @@ const fs = require('fs');
 const XLSX = require('xlsx');
 const scoresService = require('./scoresService');
 
-const {Readable} = require('stream')
+const { Readable } = require('stream')
 
 function parseScoresFromExcel(file) {
     return new Promise((resolve, reject) => {

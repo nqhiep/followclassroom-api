@@ -1,5 +1,4 @@
 const classesService = require('./classesService');
-const { JWT_SECRET } = require('../../config/authentication');
 
 function makeid(length) {
     var result = '';
