@@ -30,6 +30,13 @@ module.exports = (sequelize, DataTypes) => {
         gpa: {
             type: DataTypes.FLOAT,
         },
+        user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Users',
+                key: 'id'
+            },
+        }
     }, {
         sequelize,
         modelName: 'Grade_Board',
