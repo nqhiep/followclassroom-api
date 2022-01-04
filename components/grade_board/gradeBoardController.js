@@ -12,7 +12,7 @@ class gradeBoardController {
                 for(const grade of gradeList) {
                     const score = grade.Scores.find(score => 
                         score.student_id == student.student_id);
-                    student.dataValues[`GD ${grade.id}`] = score?.score;
+                    student.dataValues[`${grade.id}`] = score?.score;
                     student.dataValues.gpa = "...";
                 }
             }

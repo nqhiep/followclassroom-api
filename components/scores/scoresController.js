@@ -63,11 +63,14 @@ class scoresController {
                     score.Grade = scoreNum;
                     score.ScoreBasedWeight = scoreNum * grade.weight / 10;
                 }
-
+                const resp = {};
+                scores.forEach(score => resp[score.StudentId] = score.Grade);
                 //Save score
                 await scoresService.updateScoreList(gradeId, scores);
+                console.log(scores);
                 res.json({
                     isSuccess: true,
+                    data: resp,
                     message: "Update score list successfully"
                 })
             });
