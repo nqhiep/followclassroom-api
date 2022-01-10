@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
             primaryKey: true,
             type: DataTypes.INTEGER
         },
+        name: DataTypes.STRING,
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         gg_account: DataTypes.STRING,

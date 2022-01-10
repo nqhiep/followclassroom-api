@@ -15,6 +15,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         name: DataTypes.STRING,
+        code: DataTypes.STRING,
+        code_password: DataTypes.STRING,
         description: DataTypes.STRING,
         cover: DataTypes.STRING,
         student_link: DataTypes.STRING,
