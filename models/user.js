@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             unique: true,
         },
-        isBanned: DataTypes.BOOLEAN
+        isBanned: DataTypes.BOOLEAN,
+        is_activated: DataTypes.BOOLEAN
     }, {
         sequelize,
         modelName: 'Users',

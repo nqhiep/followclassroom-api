@@ -1,40 +1,32 @@
 'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Scores', {
+    await queryInterface.createTable('Comments', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      grade_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Grades',
-          key: 'id'
-        }
       },
-      student_id: {
+      review_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.STRING,
+        references: {
+          model: 'Grade_Review',
+          key: 'id'
+        },
       },
       user_id: {
-        allowNull: false,
         type: Sequelize.INTEGER,
+        allowNull: false,
         references: {
           model: 'Users',
           key: 'id'
         }
       },
-      score: {
+      content: {
+        type: Sequelize.STRING,
         allowNull: false,
-        type: Sequelize.FLOAT,
-      },
-      score_based_weight: {
-        allowNull: false,
-        type: Sequelize.FLOAT,
       },
       createdAt: {
         allowNull: false,
@@ -47,6 +39,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Scores');
+    await queryInterface.dropTable('Comments');
   }
 };
