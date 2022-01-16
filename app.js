@@ -69,11 +69,12 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
   console.log(err);
+
   // render the error page
-  res.status(err.status || 500);
+  res.status(err.status || 400);
   res.json({
     isSuccess: false,
-    message: 'Bad request'
+    message: (err.status == 500 ? 'Server Error' : err.message) ?? 'Bad request'
   });
 });
 
