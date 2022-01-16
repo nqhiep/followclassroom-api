@@ -12,49 +12,49 @@ opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken("Authorization");
 opts.secretOrKey = JWT_SECRET;
 
 passport.use(new JwtStrategy(opts, async function (jwt_payload, done) {
-    try {
-        const user = await authService.findById(jwt_payload.sub);
-        if (user) return done(null, { id: user.id });
-        done(null, false);
-    } catch (err) {
-        done(err, false);
-    }
+  try {
+    const user = await authService.findById(jwt_payload.sub);
+    if (user) return done(null, { id: user.id });
+    done(null, false);
+  } catch (err) {
+    done(err, false);
+  }
 }));
 
 passport.use(new LocalStrategy(
-    {
-        usernameField: 'email',
-    },
-    async function (email, password, done) {
-        try {
-            const user = await authService.checkCredential(email, password);
-            if (user) {
-                return done(null, { id: user.id });
-            }
-            return done(null, false);
+  {
+    usernameField: 'email',
+  },
+  async function (email, password, done) {
+    try {
+      const user = await authService.checkCredential(email, password);
+      if (user) {
+        return done(null, { id: user.id, name: user.name, avatar: user.avatar, email: user.email });
+      }
+      return done(null, false);
 
-        } catch (err) {
-            console.log(err);
-            return done(err, false);
-        }
+    } catch (err) {
+      console.log(err);
+      return done(err, false);
     }
+  }
 ));
 
 
 
 passport.use(new GoogleTokenStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET
 },
-    async function (accessToken, refreshToken, profile, done) {
-        try {
-            const user = await authService.findOrCreateGGAccount(profile._json);
-            return done(null, { id: user.id });
-        } catch (err) {
-            console.log(err);
-            done(err, false);
-        }
+  async function (accessToken, refreshToken, profile, done) {
+    try {
+      const user = await authService.findOrCreateGGAccount(profile._json);
+      return done(null, { id: user.id, name: user.name, avatar: user.avatar, email: user.email });
+    } catch (err) {
+      console.log(err);
+      done(err, false);
     }
+  }
 ));
 
 
