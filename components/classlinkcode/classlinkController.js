@@ -84,6 +84,7 @@ class AuthController {
             message: "Sign in successfully"
         });
     }
+
 }
 
 module.exports = new AuthController();
