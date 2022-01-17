@@ -1,7 +1,9 @@
 const db = require('../../models/index');
 const bcrypt = require('bcrypt');
+const crypto = require("crypto");
 const saltRounds = 10;
-const { Users } = db;
+const { Users, Tokens } = db;
+const TokenType = require('../../enums/token_type.enum');
 
 module.exports.findById = async function (id) {
   const user = await Users.findOne({
@@ -25,10 +27,19 @@ module.exports.createUser = async (userData) => {
   const hash = bcrypt.hashSync(userData.password, saltRounds);
   const user = await Users.create({
     email: userData.email,
+    name: userData.name,
     password: hash,
     is_activated: false
   });
-  return user;
+
+  const token = crypto.randomBytes(20).toString("hex");
+  const createdToken = await Tokens.create({
+    token,
+    user_id: user.id,
+    type: TokenType.ACTIVE_ACCOUNT,
+  })
+
+  return { user, createdToken };
 }
 
 module.exports.checkCredential = async function (email, password) {
@@ -51,6 +62,7 @@ module.exports.findOrCreateGGAccount = async (gg_profile) => {
   const email = gg_profile.email;
   const gg_account = gg_profile.id;
   const avatar = gg_profile.picture;
+  const name = gg_profile.name;
 
   let user = await Users.findOne({
     where: {
@@ -62,6 +74,7 @@ module.exports.findOrCreateGGAccount = async (gg_profile) => {
       gg_account,
       email,
       avatar,
+      name,
       is_activated: true
     });
     return user;
@@ -97,4 +110,35 @@ module.exports.updateUser = async (id, email, student_id, gg_account, fb_account
   }
 
   return user;
+}
+
+module.exports.findToken = async (token, type) => {
+  return await Tokens.findOne({
+    where: {
+      token,
+      type
+    },
+    raw: true
+  })
+}
+module.exports.deleteToken = async (token, type) => {
+  return await Tokens.destroy({
+    where: {
+      token,
+      type
+    }
+  })
+}
+
+module.exports.setActivatedAccount = async (user_id, is_activated) => {
+  return await Users.update(
+    {
+      is_activated
+    },
+    {
+      where: {
+        id: user_id
+      }
+    }
+  )
 }

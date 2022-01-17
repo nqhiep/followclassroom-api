@@ -8,7 +8,8 @@ const schemas = {
         password: Joi.string()
             .min(6)
             .required(),
-        confirm_password: Joi.ref('password')
+        confirm_password: Joi.ref('password'),
+        name: Joi.string().min(3).required()
     }),
     signInSchema: Joi.object({
         email: Joi.string()
