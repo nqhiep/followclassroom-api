@@ -15,11 +15,12 @@ class CommentsController {
                 content: req.body.content,
             };
 
-            await commentsService.createNewComment(data);
+            const result = await commentsService.createNewComment(data);
             return res.json(
                 {
                     isSuccess: true,
-                    message: "Create comment successfully!"
+                    message: "Create comment successfully!",
+                    result
                 })
 
         } catch (err) {

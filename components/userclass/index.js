@@ -6,5 +6,7 @@ const userClassController = require('./userClassController');
 router.get('/:id', userClassController.showUserClassList);
 router.get('/:classid/:userid', userClassController.showUserClass);
 
+router.get('/:classid/:userid', userClassController.showUserClass);
+
 module.exports = router;
 

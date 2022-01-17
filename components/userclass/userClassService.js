@@ -12,6 +12,7 @@ module.exports.getUserByClassId = async function (classId) {
 }
 
 module.exports.getUserClass = async function (classId, userId) {
+<<<<<<< Updated upstream
   const userClass = await User_Class.findAll({
       where: {
           class_id: classId,
@@ -20,4 +21,14 @@ module.exports.getUserClass = async function (classId, userId) {
       include: Users
   });
   return userClass;
+=======
+    const userClass = await User_Class.findAll({
+        where: {
+            class_id: classId,
+            user_id: userId
+        },
+        include: Users
+    });
+    return userClass;
+>>>>>>> Stashed changes
 }

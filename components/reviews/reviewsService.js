@@ -26,15 +26,12 @@ module.exports.teacherReviewsCategory = async function (class_id) {
     const reviews = await Grade_Review.findAll({
         include: {
             model: Scores,
-            where: '',
-            include: {
-                model: Grades,
-                where: { class_id },
-                require: true
+            include: [{
+                model: Grades
             },
-            include: {
+            {
                 model: Users
-            }
+            }]
         }
     });
     return reviews;
@@ -45,15 +42,12 @@ module.exports.studentReviewsCategory = async function (class_id, user_id) {
         include: {
             model: Scores,
             where: { user_id },
-            require: true,
-            include: {
-                model: Grades,
-                where: {class_id},
-                require: true
+            include: [{
+                model: Grades
             },
-            include: {
+            {
                 model: Users
-            }
+            }]
         },
     });
     return reviews;

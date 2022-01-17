@@ -1,13 +1,17 @@
 const db = require('../../models/index');
-const { Comments } = db;
+const { Comments, Users } = db;
 
 module.exports.createNewComment = async function (data) {
-    await Comments.create(data);
+    const res = await Comments.create(data);
+    return res;
 }
 
 module.exports.commentsCategory = async function (review_id) {
     const reviews = await Comments.findAll({
-        where: { review_id }
+        where: { review_id },
+        include: {
+            model: Users,
+        }
     });
     return reviews;
 }

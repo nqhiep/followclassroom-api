@@ -26,7 +26,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       grade_order: {
-        type: Sequelize.ARRAY(Sequelize.INTEGER)
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: {}
       },
       createdAt: {
         allowNull: false,

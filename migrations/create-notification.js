@@ -10,11 +10,7 @@ module.exports = {
             },
             user_id: {
                 allowNull: false,
-                type: Sequelize.INTEGER,
-                references: {
-                    model: 'Users',
-                    key: 'id'
-                }
+                type: Sequelize.ARRAY(Sequelize.INTEGER),
             },
             class_id: {
                 allowNull: false,
@@ -32,6 +28,7 @@ module.exports = {
                 allowNull: false,
                 type: Sequelize.STRING,
             },
+            is_view: Sequelize.ARRAY(Sequelize.BOOLEAN),
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
