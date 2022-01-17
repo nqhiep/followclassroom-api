@@ -20,13 +20,19 @@ router.post('/sign-in',
 // [GET] /active-account
 router.get('/active-account/:token', AuthController.activeAccount);
 
+// [POST]
+router.post('/get-reset-password', AuthController.getResetPassword);
+
+// [GET]
+router.get('/reset-password/:tokenId', AuthController.checkToken);
+
+router.post('/reset-password/:tokenId', AuthController.resetPassword);
+
 // [POST] /auth/google
 router.post('/auth/google',
   passport.authenticate('google-token', { session: false }),
   AuthController.signIn
 )
-
-
 
 router.get('/user-infor',
   AuthController.getfromToken

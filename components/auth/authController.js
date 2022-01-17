@@ -3,6 +3,7 @@ const authService = require('./authService');
 const { JWT_SECRET } = require('../../config/authentication');
 const TokenType = require('../../enums/token_type.enum');
 const nodeMailer = require('../../util/nodeMailer');
+const AppError = require('../../util/AppError');
 
 const encodedToken = (userId) => {
   return jwt.sign({
@@ -147,6 +148,108 @@ class AuthController {
     }
   }
 
+  async getResetPassword(req, res, next) {
+    try {
+      const email = req.body.email;
+      const user = await authService.findUserByEmail(email);
+
+      if (!user) {
+        return next(AppError("Not found account with your email!", 400));
+      }
+
+      const token = await authService.createToken(user.id, TokenType.RESET_PASSWORD);
+      const resetLink = process.env.FE_LINK + '/account/reset-password/' + token.token;
+
+      const mailOptions = {
+        from: 'FollowClassRoom',
+        to: email,
+        subject: 'Reset your password FollClassroom!',
+        html: '<div>' +
+          '<h1>Xin Chào</h1>' +
+          `<p>Bạn nhận được link để cập nhật mật khẩu tài khoản của bạn!</p>` +
+          `<a href='${resetLink}'>Cập nhật tại đây</a>` +
+          `<p>Trân trọng!</p>` +
+          '</div>'
+      };
+
+      await nodeMailer.sendMail(mailOptions);
+
+      res.json({
+        isSuccess: true
+      })
+    } catch(err) {
+      next(err);
+    }
+  }
+
+  async checkToken(req, res, next) {
+    try {
+      const strToken = req.params.tokenId;
+      const token = await authService.findToken(strToken, TokenType.RESET_PASSWORD);
+      
+      if (!token) {
+        res.json({
+          isSuccess: false,
+          message: 'Invalid Token or expired'
+        })
+        return;
+      }
+
+      if (new Date(token.createdAt).getTime() + 900000 < new Date().getTime()) {
+        authService.deleteToken(strToken, TokenType.RESET_PASSWORD);
+        res.json({
+          isSuccess: false,
+          message: 'Invalid Token or expired'
+        })
+        return;
+      }
+
+      const userInfo = await authService.findById(token.user_id);
+
+      res.json({
+        isSuccess: true,
+        user: {
+          email: userInfo.email,
+          avatar: userInfo.avatar,
+        }
+      })
+    } catch(err) {
+      next(err);
+    }
+  }
+
+  async resetPassword(req, res, next) {
+    try {
+      const strToken = req.params.tokenId;
+      const token = await authService.findToken(strToken, TokenType.RESET_PASSWORD);
+      const password = req.body.password;
+      
+      if (!token) {
+        res.json({
+          isSuccess: false,
+          message: 'Invalid Token or expired'
+        })
+        return;
+      }
+
+      if (new Date(token.createdAt).getTime() + 900000 < new Date().getTime()) {
+        authService.deleteToken(strToken, TokenType.RESET_PASSWORD);
+        res.json({
+          isSuccess: false,
+          message: 'Invalid Token or expired'
+        })
+        return;
+      }
+
+      await authService.updatePasswordOfUser(token.user_id, password);
+      authService.deleteToken(strToken, TokenType.RESET_PASSWORD);
+      res.json({
+        isSuccess: true
+      })
+    } catch(err) {
+      next(err);
+    }
+  }
 }
 
 module.exports = new AuthController();

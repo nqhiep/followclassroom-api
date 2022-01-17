@@ -9,6 +9,15 @@ class classesController {
             console.error(err);
         }
     }
+    async showUserClass(req, res) {
+      const classId = req.params.classid;
+      const userId = req.params.userid;
+      try {
+          return await res.json(await userClassService.getUserClass(classId, userId));
+      } catch (err) {
+          console.error(err);
+      }
+  }
 
 }
 

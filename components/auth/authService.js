@@ -14,6 +14,15 @@ module.exports.findById = async function (id) {
   return user;
 }
 
+module.exports.findUserByEmail = async function (email) {
+  const user = await Users.findOne({
+    where: {
+      email
+    }
+  })
+  return user;
+}
+
 module.exports.isExistEmail = async (email) => {
   const user = await Users.findOne({
     where: {
@@ -32,14 +41,18 @@ module.exports.createUser = async (userData) => {
     is_activated: false
   });
 
-  const token = crypto.randomBytes(20).toString("hex");
-  const createdToken = await Tokens.create({
-    token,
-    user_id: user.id,
-    type: TokenType.ACTIVE_ACCOUNT,
-  })
+  const createdToken = await this.createToken(user.id, TokenType.ACTIVE_ACCOUNT)
 
   return { user, createdToken };
+}
+
+module.exports.createToken = async (user_id, type) => {
+  const token = crypto.randomBytes(20).toString("hex");
+  return await Tokens.create({
+    token,
+    user_id,
+    type
+  })
 }
 
 module.exports.checkCredential = async function (email, password) {
@@ -141,4 +154,14 @@ module.exports.setActivatedAccount = async (user_id, is_activated) => {
       }
     }
   )
+}
+
+module.exports.updatePasswordOfUser = async (userId, password) => {
+  const hash = bcrypt.hashSync(password, saltRounds);
+  const result = await Users.update({ password: hash }, {
+    where: {
+      id: userId
+    }
+  });
+  return result;
 }

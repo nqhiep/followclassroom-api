@@ -10,3 +10,14 @@ module.exports.getUserByClassId = async function (classId) {
     });
     return userClass;
 }
+
+module.exports.getUserClass = async function (classId, userId) {
+  const userClass = await User_Class.findAll({
+      where: {
+          class_id: classId,
+          user_id: userId
+      },
+      include: Users
+  });
+  return userClass;
+}
