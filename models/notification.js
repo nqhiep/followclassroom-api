@@ -15,11 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         user_id: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER),
-            references: {
-                model: 'Users',
-                key: 'id'
-            },
+            type: DataTypes.ARRAY(DataTypes.INTEGER)
         },
         class_id: {
             type: DataTypes.INTEGER,

@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     class Scores extends Model {
         static associate(models) {
             Scores.belongsTo(models.Grades, { foreignKey: 'grade_id' });
-            Scores.belongsTo(models.Users, { foreignKey: 'student_id' });
+            Scores.belongsTo(models.Users, { foreignKey: 'user_id' });
         }
     };
     Scores.init({
