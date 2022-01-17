@@ -1,5 +1,6 @@
 const emailService = require('./emailService')
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 class emailControler {
   async postEmail(req, res) {
@@ -13,13 +14,14 @@ class emailControler {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: 'foll.classroom@gmail.com',
+        user: 'followclassroomproject@gmail.com',
+        // user: 'foll.classroom@gmail.com',
         pass: 'Ptudw123.'
-      }
+      },
     });
 
     const mailOptions = {
-      from: 'FollowClassRoom',
+      from: 'followclassroomproject@gmail.com',
       to: req.body.email,
       subject: 'Invite join Class by Me',
       html: '<div>' +

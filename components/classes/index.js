@@ -9,5 +9,9 @@ router.get('/:id', classesController.showClassById);
 
 router.post('/', classesController.createNewClass);
 
+router.put('/:id', classesController.updateCode);
+
+router.post('/code', classesController.joinClassbyCode)
+
 module.exports = router;
 
