@@ -31,7 +31,7 @@ var whitelist = [
   'https://follmeclassroom.herokuapp.com',
   'https://follclassroom.herokuapp.com',
   'https://followclassroom-fe.vercel.app',
-  'https://followclassroom-fe-final.vercel.app/'
+  'https://followclassroom-fe-final.vercel.app'
 ];
 
 const corsOptions = {
