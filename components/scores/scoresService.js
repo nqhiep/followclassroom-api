@@ -10,6 +10,15 @@ module.exports.findGradeById = async function (gradeId) {
     return grade;
 }
 
+module.exports.findScoreById = async function (Id) {
+    const score = await Scores.findOne({
+        where: {
+            'id': Id
+        }
+    });
+    return score;
+}
+
 module.exports.findRoomById = async function (classId) {
     const room = await Classes.findOne({
         where: {

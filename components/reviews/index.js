@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const reviewsController = require('./reviewsController');
 
-router.get('/:class_id', reviewsController.viewList);
+router.get('/view/:class_id', reviewsController.viewList);
 
-router.put('/:class_id', reviewsController.markReviewDone);
+router.post('/mark/:class_id', reviewsController.markReviewDoneNoti);
+
+router.post('/mark/:class_id', reviewsController.markReviewDone);
 
 router.post('/create', reviewsController.createReview);
 

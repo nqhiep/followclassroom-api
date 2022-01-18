@@ -15,6 +15,7 @@ const gradeRouter = require('./components/grades');
 const scoreRouter = require('./components/scores');
 const reviewRouter = require('./components/reviews');
 const commentRouter = require('./components/comments');
+const notificationRouter = require('./components/notifications');
 const gradeBoardRouter = require('./components/grade_board');
 const authenticate = require('./middlewares/authentication');
 const app = express();
@@ -61,6 +62,7 @@ app.use('/scores', scoreRouter);
 app.use('/gradeboard', gradeBoardRouter);
 app.use('/review', reviewRouter);
 app.use('/comment', commentRouter);
+app.use('/noti', notificationRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

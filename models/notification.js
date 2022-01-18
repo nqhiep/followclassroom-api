@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
         user_id: {
-            type: DataTypes.ARRAY(DataTypes.INTEGER)
+            type: DataTypes.INTEGER,
+            references: {
+                model: 'Users',
+                key: 'id'
+            },
         },
         class_id: {
             type: DataTypes.INTEGER,
@@ -26,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         title: DataTypes.STRING,
         content: DataTypes.STRING,
-        is_view: DataTypes.ARRAY(DataTypes.BOOLEAN),
+        is_view: DataTypes.BOOLEAN,
     }, {
         sequelize,
         modelName: 'Notifications',
