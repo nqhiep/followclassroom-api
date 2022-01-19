@@ -30,7 +30,8 @@ var whitelist = [
   'http://localhost:3001',
   'https://follmeclassroom.herokuapp.com',
   'https://follclassroom.herokuapp.com',
-  'https://followclassroom-fe.vercel.app'
+  'https://followclassroom-fe.vercel.app',
+  'https://followclassroom-fe-final.vercel.app'
 ];
 
 const corsOptions = {
