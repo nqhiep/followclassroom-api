@@ -14,4 +14,6 @@ router.put('/:classid/:id', classesController.updateGrade);
 
 router.delete('/:classid/:id', classesController.deleteGrade);
 
+router.post('/complete/:id', classesController.completeGrade);
+
 module.exports = router;
