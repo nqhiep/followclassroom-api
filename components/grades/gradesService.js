@@ -97,3 +97,15 @@ module.exports.updateGrades = async function (class_id, id, name, weight) {
     }
     );
 }
+
+module.exports.completeGrade = async function (id) {
+
+    await Grades.update({
+        is_finish: true
+    }, {
+        where: {
+            id
+        },
+    }
+    );
+}
