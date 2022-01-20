@@ -27,7 +27,10 @@ module.exports.teacherReviewsCategory = async function (class_id) {
         include: {
             model: Scores,
             include: [{
-                model: Grades
+                model: Grades,
+                where: {
+                    class_id: class_id
+                }
             },
             {
                 model: Users
@@ -43,7 +46,10 @@ module.exports.studentReviewsCategory = async function (class_id, user_id) {
             model: Scores,
             where: { user_id },
             include: [{
-                model: Grades
+                model: Grades,
+                where: {
+                    class_id: class_id
+                }
             },
             {
                 model: Users
