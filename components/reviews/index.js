@@ -6,7 +6,7 @@ router.get('/view/:class_id', reviewsController.viewList);
 
 router.post('/mark/:class_id', reviewsController.markReviewDoneNoti);
 
-router.post('/mark/:class_id', reviewsController.markReviewDone);
+router.put('/mark/:class_id', reviewsController.markReviewDone);
 
 router.post('/create', reviewsController.createReview);
 

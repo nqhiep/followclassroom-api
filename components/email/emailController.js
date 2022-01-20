@@ -27,7 +27,7 @@ class emailControler {
       html: '<div>' +
         '<h1>Xin Chào</h1>' +
         `<p>Bạn nhận được link ${roleInvite} join class:</p>` +
-        `<a href='http://localhost:3001/classlink/sign-in/${clsslink}'>Join tại đây</a>` +
+        `<a href='${process.env.FE_LINK}/classlink/sign-in/${clsslink}'>Join tại đây</a>` +
         `<p>Từ ${user.email}. Chân trọng!</p>` +
         '</div>'
     };

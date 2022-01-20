@@ -89,6 +89,19 @@ class gradesController {
             console.error(err);
         }
     }
+
+    async completeGrade(req, res) {
+        try {
+            await gradesService.completeGrade(req.params.id);
+            res.json(
+                {
+                    isSuccess: true,
+                    message: "Complete Grade successfully!"
+                })
+        } catch (err) {
+            console.error(err);
+        }
+    }
 }
 
 module.exports = new gradesController();
